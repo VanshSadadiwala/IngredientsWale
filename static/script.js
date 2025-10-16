@@ -6,6 +6,25 @@
 // Point this to your deployed backend (e.g., Cloud Run/Railway URL)
 const API_BASE = (typeof window !== 'undefined' && window.INGREDIENTWALE_API_BASE) || '';
 
+// Static menu of dishes (no backend fetch)
+const STATIC_DISHES = [
+    'Biryani',
+    'Chole bhature',
+    'dabeli',
+    'Dal tadka',
+    'Dhokla',
+    'Dosa',
+    'Jalebi',
+    'Kathi Roll',
+    'Kofta',
+    'Naan',
+    'Kadhi pakoda',
+    'Paneer tikka masala',
+    'Pani puri',
+    'Pav Bhaji',
+    'Vadapav'
+];
+
 class IngredientWaleApp {
     constructor() {
         this.initializeElements();
@@ -326,17 +345,8 @@ class IngredientWaleApp {
     }
 
     async loadDishMenu() {
-        try {
-            const response = await fetch(`${API_BASE}/menu`);
-            const result = await response.json();
-
-            if (result.ingredients) {
-                this.displayDishMenu(result.ingredients);
-            }
-        } catch (error) {
-            console.error('Failed to load dish menu:', error);
-            this.displayDishMenu([]);
-        }
+        // Use static list without calling backend
+        this.displayDishMenu(Array.isArray(STATIC_DISHES) ? [...STATIC_DISHES] : []);
     }
 
     displayDishMenu(dishes) {
