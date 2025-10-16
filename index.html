@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IngredientWale - AI Food Dish & Ingredient Predictor</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-utensils"></i>
+                <span>IngredientWale</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#upload" class="nav-link">Upload</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="document.getElementById('dish-menu').scrollIntoView({behavior: 'smooth'});">
+                        Menu <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="dish-menu">
+                        <div class="loading">Loading dishes...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="highlight">Discover</span> Your Food Dish & Ingredients
+                </h1>
+                <p class="hero-subtitle">
+                    Upload a photo of your food dish and let our AI identify the dish name and its ingredients for you
+                </p>
+                <a href="#upload" class="cta-button">
+                    <i class="fas fa-camera"></i>
+                    Start Predicting
+                </a>
+            </div>
+            <div class="hero-image">
+                <div class="food-illustration">
+                    <i class="fas fa-hamburger"></i>
+                    <i class="fas fa-pizza-slice"></i>
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <h2 class="section-title">Upload Your Food Image</h2>
+            <p class="section-subtitle">Drag and drop, click to select, or use your camera</p>
+            
+            <!-- Upload Area -->
+            <div class="upload-area" id="upload-area">
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3>Drop your food dish image here</h3>
+                    <p>or <span class="upload-link">browse files</span></p>
+                    <input type="file" id="file-input" accept="image/*" capture="environment" hidden>
+                </div>
+            </div>
+
+            
+
+            <!-- Image Preview -->
+            <div class="image-preview" id="image-preview" style="display: none;">
+                <div class="preview-container">
+                    <img id="preview-img" src="" alt="Preview">
+                    <button class="remove-image" id="remove-image">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <button class="predict-button" id="predict-button">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    Analyze Dish & Ingredients
+                </button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing your food dish...</p>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="results-section" style="display: none;">
+                <h3 class="results-title">
+                    <i class="fas fa-check-circle"></i>
+                    Food Dish Analysis
+                </h3>
+                <div class="dish-results" id="dish-results">
+                    <!-- Dish and ingredients will be populated here -->
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="error-text"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <h1 style="font-size:2rem;color:#e67e22;margin:20px 0;text-align:center;">🍲 Delicious Food Gallery</h1>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px;margin:0 auto;max-width:1200px;">
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+                    <img src="./static/images/food1.png" alt="Biryani" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Biryani</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food2.jpg" alt="Chole bhature" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Chole bhature</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food3.png" alt="dabeli" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">dabeli</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food4.png" alt="Dal tadka" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Dal tadka</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food5.png" alt="Dhokla" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Dhokla</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food6.png" alt="Dosa" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Dosa</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food7.png" alt="Jalebi" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Jalebi</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food8.png" alt="Kathi Roll" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Kathi Roll</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food9.png" alt="Kofta" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Kofta</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food10.png" alt="Naan" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Naan</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food11.jpg" alt="Kadhi pakoda" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Kadhi pakoda</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food12.jpg" alt="Paneer tikka masala" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Paneer tikka masala</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food13.png" alt="Pani puri" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Pani puri</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food14.png" alt="Pav Bhaji" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Pav Bhaji</p>
+        </div>
+        <div style="background:#fff;border:5px solid #eee;border-radius:20px;padding:10px;box-shadow:inset 0 0 10px rgba(0,0,0,0.1);">
+          <img src="./static/images/food15.png" alt="Vadapav" style="width:100%;height:200px;object-fit:cover;border-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;">
+          <p style="margin-top:10px;font-weight:bold;color:#e67e22;">Vadapav</p>
+        </div>
+      </div>
+      <div id="lightbox" style="display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;">
+        <img id="lightbox-img" src="" alt="Expanded Food" style="max-width:90%;max-height:80%;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.4);">
+      </div>
+      <script>
+        // Hover zoom effect
+        document.querySelectorAll('.section img').forEach(img => {
+          img.addEventListener('mouseover', () => {
+            img.style.transform = 'scale(1.05)';
+            img.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+          });
+          img.addEventListener('mouseout', () => {
+            img.style.transform = 'scale(1)';
+            img.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+          });
+        });
+        // Lightbox click popup
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        document.querySelectorAll('.section img').forEach(img => {
+          img.addEventListener('click', () => {
+            lightbox.style.display = 'flex';
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+          });
+        });
+        // Close popup on click
+        lightbox.addEventListener('click', () => {
+          lightbox.style.display = 'none';
+        });
+      </script>
+    </section>
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose IngredientWale?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered</h3>
+                    <p>Advanced model trained on thousands of food dish images</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fast Results</h3>
+                    <p>Get dish and ingredient predictions in seconds with our optimized model</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices - desktop, tablet, and mobile</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-utensils"></i>
+                    <span>IngredientWale</span>
+                </div>
+                <p>&copy; 2025 IngredientWale. Made with ❤️ for food lovers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./static/script.js"></script>
+</body>
+</html>
+
