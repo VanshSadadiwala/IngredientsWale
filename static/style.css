@@ -851,6 +851,18 @@ body {
 @media (max-width: 768px) {
     .nav-menu {
         display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-red) 100%);
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: var(--spacing-sm) 0;
+        box-shadow: var(--shadow-md);
+    }
+    .nav-menu.active {
+        display: flex;
     }
     
     .hamburger {
