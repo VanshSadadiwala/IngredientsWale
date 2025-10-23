@@ -199,6 +199,8 @@ class IngredientWaleApp {
             });
 
             const result = await response.json();
+            // ADD THIS LINE:
+        console.log('Data from backend:', result);
 
             if (!response.ok) {
                 throw new Error(result.error || 'Prediction failed');
@@ -207,6 +209,7 @@ class IngredientWaleApp {
             this.displayResults(result.predictions);
             
         } catch (error) {
+            alert(error.message);
             console.error('Prediction error:', error);
             this.showError(error.message || 'Failed to analyze dish. Please try again.');
         } finally {
@@ -218,6 +221,7 @@ class IngredientWaleApp {
     // Removed custom camera implementation
 
     displayResults(predictions) {
+        console.log('Calling displayResults with:', predictions);
         if (!predictions || predictions.length === 0) {
             this.showError('No dish or ingredients detected in the image');
             return;
@@ -257,6 +261,10 @@ class IngredientWaleApp {
         });
     }
 
+// PASTE THIS ENTIRE FUNCTION INTO YOUR script.js
+
+// REPLACE your old createDishCard function with THIS one:
+
     createDishCard(prediction, index) {
         const card = document.createElement('div');
         card.className = 'dish-card';
@@ -284,6 +292,7 @@ class IngredientWaleApp {
             `;
         }
 
+        // --- THIS HTML BLOCK IS NOW CORRECT ---
         card.innerHTML = `
             <div class="dish-icon">
                 <i class="fas fa-utensils"></i>
