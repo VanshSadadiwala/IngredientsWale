@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 #To run backend actiavte virtual environment then python app.py
 # ---------------- Configuration ---------------- #
 app = Flask(__name__)
-CORS(app, origins="*")
+CORS(app, origins="https://ingredients-wale.vercel.app")
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
