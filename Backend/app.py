@@ -132,6 +132,4 @@ def predict():
         if os.path.exists(filepath):
             os.remove(filepath)
 
-# ---------------- Main Entry ---------------- #
-if __name__ == '__main__':
-    app.run( debug=True)
+
