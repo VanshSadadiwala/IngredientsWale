@@ -3,8 +3,8 @@
  * Handles image upload, dish prediction requests, and dynamic UI updates
  */
 
-// Point this to your deployed backend (e.g., Cloud Run/Railway URL)
-const API_BASE = (typeof window !== 'undefined' && window.INGREDIENTWALE_API_BASE) || '';
+// Backend API base URL (configured in index.html for localhost)
+const API_BASE = (typeof window !== 'undefined' && window.INGREDIENTWALE_API_BASE) || 'http://127.0.0.1:5000/';
 
 // Static menu of dishes (no backend fetch)
 const STATIC_DISHES = [
@@ -318,7 +318,7 @@ class IngredientWaleApp {
         const header = document.createElement('div');
         header.className = 'ingredients-header';
         header.innerHTML = `
-            <h4><i class="fas fa-list"></i> Possible Ingredients</h4>
+            <h4><i class="fas fa-list"></i> Possible Dishes</h4>
         `;
         section.appendChild(header);
 
